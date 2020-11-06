@@ -1,7 +1,7 @@
 
 
 import {UserConstants} from "../ACTIONS/constant"
-const InitialState={USERS:[]}
+const InitialState={USERS_ONLINE:[]}
 export const UserReducers=(state=InitialState,action)=>{
     console.log(action.payload,"ACTION USER WALA KA")
     switch(action.type){
@@ -9,7 +9,7 @@ export const UserReducers=(state=InitialState,action)=>{
             break;
         case `${UserConstants.GET_REALTIME_USERS}.SUCCESS`:
             console.log(action.payload.USERS,"YEH SELAL")
-            state={...state,USERS:action.payload.USERS}
+            state={...state,USERS_ONLINE:action.payload.USERS_ONLINE}
             break
             
 

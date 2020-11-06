@@ -8,19 +8,21 @@ import firebase from "firebase/app"
 export const getRealTimeUsers=(Id)=>{
     return async (dispatch)=>{
       const db=firebase.firestore()
-   db.collection("USERS")
+ const unsubscribe=  db.collection("USERS_ONLINE")
 //    .where("state", "==", "CA")
       .onSnapshot(function(querySnapshot) {
-          var USERS = [];
+          const USERS_ONLINE = [];
           querySnapshot.forEach(function(doc) {
              if( doc.data().Id != Id){
-              USERS.push(doc.data());
-             }
+              USERS_ONLINE.push(doc.data());
+             }else{return (null)}
           });
-          console.log(USERS);
-          dispatch({type:`${UserConstants.GET_REALTIME_USERS}.SUCCESS`,payload:{USERS}})
+          console.log(USERS_ONLINE);
+          dispatch({type:`${UserConstants.GET_REALTIME_USERS}.SUCCESS`,payload:{USERS_ONLINE}})
 
       });
+      return unsubscribe
   
     }
+  
 }
