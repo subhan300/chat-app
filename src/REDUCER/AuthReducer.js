@@ -1,7 +1,8 @@
 import {authConstanst} from "../ACTIONS/constant";
 
 const InitialState={
-  Id:"" , FirstName:"",LastName:"",Email:"",authenticating:false,authenticated:false,error:null
+  Id:"" , FirstName:"",LastName:"",Email:"",authenticating:false,authenticated:false,
+  error:null
 }
 
 const AuthReducer=(state=InitialState,action)=>{
