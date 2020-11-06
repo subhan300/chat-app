@@ -43,7 +43,7 @@ function Header(props) {
             {
               auth.authenticated ?
               <Link to={"#"} onClick={() => {
-                dispatch(LogOutFunction())
+                dispatch(LogOutFunction(auth.Id))
               }}>Logout</Link> : null
             }
           

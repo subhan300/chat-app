@@ -27,7 +27,7 @@ function Login(props) {
     const[Password,SetPassword]=useState("")
 
     const dispatch=useDispatch()
-    const auth=useSelector((state)=>{console.log(state,"state hai ye store ki")
+    const auth=useSelector((state)=>{console.log(state)
         return(state.auth) })
 
     const userLogin = (e) => {

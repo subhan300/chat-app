@@ -4,13 +4,21 @@ import "./signup.css"
 import UiCard from "../../COMPONENTS/UICARD/UiCard"
 import {RegisterForSignUp} from "../../ACTIONS/Actions"
 import {useDispatch,useSelector} from "react-redux"
-function Signup(props) {
+import {Redirect} from "react-router-dom"
+const Signup=(props)=> {
+
+  const dispatch=useDispatch()
+
+  const auth=useSelector((state)=>{console.log(state)
+    return(state.auth) })
+    
     const[FirstName,SetFirstName]=useState("")
     const[LastName,SetLastName]=useState("")
     const[Email,SetEmail]=useState("")
     const[Password,SetPassword]=useState("")
+
+
   
-  const dispatch=useDispatch()
     const onSubmit=(e)=>{
         e.preventDefault();
         const user={
@@ -20,6 +28,9 @@ function Signup(props) {
    
         dispatch(RegisterForSignUp(user))
 
+    }
+    if(auth.authenticated){
+        return(<Redirect to="/"></Redirect>)
     }
     return (
         <div >

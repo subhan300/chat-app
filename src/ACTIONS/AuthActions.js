@@ -37,10 +37,13 @@ export const RegisterForSignUp = (user) => {
         }).then((data)=>{
        
           
-            db.collection("USERS").add({FirstName:user.FirstName,LastName:user.LastName,Date:new Date(),
+            db.collection("USERS").add({FirstName:user.FirstName,LastName:user.LastName,
+                isOnline:true,Date:new Date(),
          Id:data.user.uid,Description:{src:"my image code",descriptions:"hey this is my product",price:3949}})
-        }).then(()=>{const loged_In_User={FirstName:user.FirstName,LastName:user.LastName,
-            Email:user.Email}
+        }).then((d)=>{const loged_In_User={FirstName:user.FirstName,LastName:user.LastName,
+            Email:user.Email,Id:d.user.uid
+         }
+         console.log(d.user.uid,"yeh i hai")
         console.log(loged_In_User,"loged")
     localStorage.setItem("USERS",JSON.stringify(loged_In_User))
     dispatch({
@@ -92,16 +95,21 @@ export const signin = (user) => {
     } 
 
 
-export const LogOutFunction=()=>{
+export const LogOutFunction=(Id)=>{
     return async dispatch=>{
         dispatch({type:`${authConstanst.USER_LOGOUT}_REQUEST`})
+        const db=firebase.firestore();
+        db.collection("USERS").doc(Id).set({isOnline:false}).then(()=>{
 
-       await  firebase.auth().signOut().then(()=>{
+         firebase.auth().signOut().then(()=>{
+
         localStorage.clear();
             dispatch({type:`${authConstanst.USER_LOGOUT}_SUCCESS`})
         })  .catch(error => {
             console.log(error);
             dispatch({ type: `${authConstanst.USER_LOGOUT}_FAILURE`, payload: { error } })
+        })
+
         })
 
  
